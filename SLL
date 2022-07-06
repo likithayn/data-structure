@@ -1,0 +1,142 @@
+//SINGLY LINKED LIST
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int info;
+    struct node *link;
+};
+typedef struct node* NODE;
+NODE getnode()
+{
+    NODE x;
+    x=(NODE)malloc(sizeof(struct node));
+    if(x==NULL)
+    {
+        printf("sll is empty\n");
+        exit(0);
+    }
+    return x;
+}
+NODE insert_front(NODE first,int elem)
+{
+    NODE temp;
+    temp=getnode();
+    temp ->info = elem;
+    temp ->link = first;
+    return temp;
+}
+NODE insert_rear(NODE first,int elem)
+{
+    NODE temp,cur,prev;
+    temp=getnode();
+    temp->info=elem;
+    temp->link=NULL;
+    if(first==NULL)
+    {
+        return temp;
+    
+    }
+    else
+    {
+        cur=first;
+        prev=NULL;
+        while(cur!=NULL)
+        {
+            prev=cur;
+            cur=cur->link;
+        }
+        prev->link=temp;
+        return first;
+    }
+}
+NODE delete_front(NODE first)
+{
+    NODE next;
+    if(first==NULL)
+    {
+        printf("Singly link list is empty");
+        return first;
+    }
+    printf("Delted elem is %d",first->info);
+    next=first->link;
+    free(first);
+    return next;
+}
+NODE delete_rear(NODE first)
+{
+    NODE cur,prev;
+    if(first==NULL)
+    {
+        printf("Singly link list is empty");
+        return first;
+    }
+    else if(first->link == NULL)
+    {
+        printf("Delted elem is %d",first->info);
+        free(first);
+        return NULL;
+    }
+    else
+    {
+        cur = first;
+        prev=NULL;
+        while(cur->link!=NULL)
+        {
+            prev=cur;
+            cur=cur->link;
+        }
+        printf("Delted information is %d",cur->info);
+        free(cur);
+        prev->link=NULL;
+        return first;
+    }
+}
+void display(NODE first)
+{
+    NODE cur;
+    cur=first;
+    if(first==NULL)
+    {
+        printf("Singly link list is empty");
+        return ;
+    }
+    while(cur!=NULL)
+    {
+        printf("%d\t",cur->info);
+        cur=cur->link;
+    }
+}
+int main()
+{
+    NODE first;
+    first=NULL;
+    int elem,ch;
+    while(1)
+    {
+        printf(" choice are \n1.Insert front\n2.Insert rear\n3.Delte front\n4.Delete rear\n5.Display\n6.exit\n");
+        printf("\nenter choice\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1: printf("Enter element\n");
+                    scanf("%d",&elem);
+                    first=insert_front(first,elem);
+                    break;
+            case 2: printf("Enter element \n");
+                    scanf("%d",&elem);
+                    first=insert_rear(first,elem);
+                    break;
+            case 3: first=delete_front(first);
+                    break;
+            case 4: first=delete_rear(first);
+                    break;
+            case 5: display(first);
+                    break;
+            case 6:exit(0);
+            default:printf("Invalid choice\n");
+                    
+        }
+    }
+    return 0;
+}
