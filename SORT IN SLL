@@ -1,0 +1,80 @@
+//SORT SLL
+#include<stdio.h>
+#include<stdlib.h>
+	
+struct node
+{
+	int info;
+	struct node * link;
+};
+typedef struct node * NODE;
+
+NODE getnode()
+{
+	NODE x;
+	x=(NODE)malloc(sizeof(struct node));
+	if(x==NULL)
+	{
+		printf("memory not allocated\n");
+		exit (0);
+	}
+	return x;
+}
+NODE insert_front(NODE first,int ele)
+{
+	NODE temp;
+	temp=getnode();
+	temp->link=first;
+	temp->info=ele;
+	return temp;
+}
+void sort(NODE first,int n)
+{
+	NODE cur,prev=NULL;
+	int temp,i,j;
+	for( i=0;i<n-1;i++)
+	{	cur=first;
+		for(j=0;j<n-i-1;j++)
+		{
+			prev=cur;
+			cur=cur->link;
+			if((cur->info)<(prev->info))
+			{
+				temp=cur->info;
+				cur->info=prev->info;
+				prev->info=temp;
+			}
+		}
+	}
+
+}
+void display(NODE first)
+{
+	if(first==NULL)
+{
+		printf("no elements to display\n");
+		return;
+}
+	NODE cur;
+	for(cur=first;cur!=NULL;cur=cur->link)
+		printf("%d ",cur->info);	
+	printf("\n");
+	
+}
+int main()
+{
+	NODE first=NULL;
+	int n,ele,i;
+	printf("enter the no of elements\n");
+	scanf("%d",&n);
+	for( i=0;i<n;i++)
+	{
+		printf("enter the element\n");
+		scanf("%d",&ele);
+		first=insert_front(first,ele);
+	}
+	sort(first,n);
+	printf("the sorted sll is\n");
+	display(first);
+	
+}
