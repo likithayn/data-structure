@@ -1,0 +1,87 @@
+//Sum of sll
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int info;
+    struct node *link;
+};
+typedef struct node *NODE;
+
+NODE getnode()
+{
+    NODE x;
+    x=(NODE)malloc(sizeof(struct node));
+    if(x==NULL)
+    {
+        printf("memorary not available");
+        exit(0);
+    
+    }
+    return x;
+    
+}
+NODE insert_front(NODE first,int ele)
+{
+	NODE temp;
+	temp=getnode();
+	temp->link=first;
+	temp->info=ele;
+	return temp;
+}
+int sum_node(NODE first)
+{
+    NODE cur;
+    
+    int sum=0;
+    cur=first;
+    while(cur!=NULL)
+    {
+    sum=sum+cur->info;
+    cur=cur->link;
+    }
+    return sum;
+
+}
+void display(NODE first)
+{
+    if(first==NULL)
+    {
+        printf("no ele");
+        return;
+        
+    }
+    
+    
+        NODE cur;
+        cur=first;
+        while(cur->link!=NULL)
+        {
+            printf("%d\t",cur->info);
+            cur=cur->link;
+        }
+        printf("%d\t",cur->info);
+        
+        
+    
+}
+int main()
+{
+    NODE first;
+    int sum,n,i,ele;
+    first=NULL;
+    	printf("enter the no of elements\n");
+	scanf("%d",&n);
+	for( i=0;i<n;i++)
+	{
+		printf("enter the element\n");
+		scanf("%d",&ele);
+		first=insert_front(first,ele);
+	}
+   
+     sum=sum_node(first);
+     display(first);
+     printf("\nsum is %d",sum);
+     return 0;
+}
