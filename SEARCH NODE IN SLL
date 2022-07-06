@@ -1,0 +1,89 @@
+//SEARCH IN SLL
+#include <stdio.h>
+#include <stdlib.h>
+struct node	
+{
+    int info;
+    struct node *link;
+};
+typedef struct node* NODE;
+NODE getnode()
+{
+    NODE x;
+    x=(NODE)malloc(sizeof(struct node));
+    if(x==NULL)
+    {
+        printf("sll is empty\n");
+        exit(0);
+    }
+    return x;
+}
+NODE insert_front(NODE first,int elem)
+{
+    NODE temp;
+    temp=getnode();
+    temp ->info = elem;
+    temp ->link = first;
+    return temp;
+}
+void search(NODE first,int elem)
+{
+    NODE cur=first;
+    int count=0;
+    while(cur!=NULL)
+    {
+        count++;
+        if(elem==cur->info)
+        {
+            printf("element %d found at %d node\n",elem,count);
+            return;
+        }
+        cur=cur->link;
+    }
+    printf("element not found\n");
+}
+void display(NODE first)
+{
+    NODE cur;
+    cur=first;
+    if(first==NULL)
+    {
+        printf("Singly link list is empty");
+        return;
+    }
+    while(cur!=NULL)
+    {
+        printf("%d\t",cur->info);
+        cur=cur->link;
+    }
+}
+int main()
+{
+    NODE first;
+    first=NULL;
+    int elem,ch;
+    while(1)
+    {
+        printf(" choice are \n1.Insert front\n2.search\n3.Display\n4.exit\n");
+        printf("enter choice\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1: printf("Enter element\n");
+                    scanf("%d",&elem);
+                    first=insert_front(first,elem);
+                    break;
+            case 2: printf("Enter element \n");
+                    scanf("%d",&elem);
+                    search(first,elem);
+                    break;
+            
+            case 3: display(first);
+                    break;
+            case 4:exit(0);
+            default:printf("Invalid choice\n");
+                    
+        }
+    }
+    return 0;
+}
