@@ -1,0 +1,106 @@
+//SLL CONCATINATE 
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int info;
+    struct node *link;
+};
+typedef struct node* NODE;
+NODE getnode()
+{
+    NODE x;
+    x=(NODE)malloc(sizeof(struct node));
+    if(x==NULL)
+    {
+        printf("sll is empty\n");
+        exit(0);
+    }
+    return x;
+}
+NODE insert_front(NODE first,int ele)
+{
+	NODE temp;
+	temp=getnode();
+	temp->link=first;
+	temp->info=ele;
+	return temp;
+}
+
+/*NODE insert_rear(NODE first,int elem)
+{
+    NODE temp,cur,prev;
+    temp=getnode();
+    temp->info=elem;
+    temp->link=NULL;
+    if(first==NULL)
+    {
+        return temp;
+    
+    }
+    else
+    {
+        cur=first;
+        prev=NULL;
+        while(cur!=NULL)
+        {
+            prev=cur;
+            cur=cur->link;
+        }
+        prev->link=temp;
+        return first;
+    }
+}*/
+void display(NODE first)
+{
+    NODE cur;
+    cur=first;
+    if(first==NULL)
+    {
+        printf("Singly link list is empty");
+        return ;
+    }
+    while(cur!=NULL)
+    {
+        printf("%d\t",cur->info);
+        cur=cur->link;
+    }
+}
+
+NODE merge(NODE first1,NODE first2)
+{
+   
+        NODE cur=first1,prev=NULL;
+        while(cur!=NULL)
+        {
+            prev=cur;
+            cur=cur->link;
+        }
+        prev->link=first2;
+    return first1;
+}
+int main()
+{
+    NODE first1=NULL,first2=NULL;
+    int n,m,item,i;
+    printf("enter the no nodes in first sll\n");
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+        printf("enter the elem\n");
+        scanf("%d",&item);
+        first1=insert_front(first1,item);
+    }
+    printf("enter the no nodes in second sll\n");
+    scanf("%d",&m);
+    for(i=0;i<m;i++)
+    {
+        printf("enter the elem\n");
+        scanf("%d",&item);
+        first1=insert_front(first1,item);
+    }
+    printf("merge is\n");
+    first1=merge(first1,first2);
+    display(first1);
+    return 0;
+}
