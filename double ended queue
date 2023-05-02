@@ -1,0 +1,110 @@
+// IMPLEMENTATION OF DOUBLE ENDED QUEUE //
+#include <stdio.h>
+#include<stdlib.h>
+#define MAX_SIZE 4
+void insert_front(int * DQ,int * front,int * rear,int elem )
+{
+    if((*rear)<(MAX_SIZE)-1)//insertion possible
+    {
+        if((*front)==0||(*rear)==-1)// normal insertion  
+        {
+            (*rear)++;
+            DQ[*rear]=elem;
+        }
+        else if((*front)!=0)//insertion at front end after deletion 
+        {
+            (*front)--;
+            DQ[*front]=elem;
+        }
+    }//queue is full
+    else
+    {
+         printf("\n INSERTION NOT POSSIBLE \n\n");
+    }
+}
+void insert_rear(int * DQ,int * rear, int elem)
+{		
+    if((*rear)<(MAX_SIZE)-1)//insertion possible
+    { 		
+        (*rear)++;
+        DQ[*rear]=elem;
+    }
+    else//rear end full
+    {
+        printf("\n INSERTION NOT POSSIBLE \n\n");
+    }
+    
+}
+void delete_front(int * DQ,int * front,int rear)
+{
+        if((*front)<=rear)//deletion possible
+        {
+            printf("the element to be poped is %d\n",DQ[(*front)]);
+	        (*front)++;
+        }
+        else//queue empty
+        {
+            printf("\n DELETION NOT POSSIBLE \n\n");
+        }
+  
+}
+void delete_rear(int * DQ,int * front ,int * rear)
+{
+    if((*front)>(*rear))
+    {
+        printf("\n DELETION NOT POSSIBLE \n\n");
+    }
+    else
+    {
+            printf("the element to be poped is %d\n",DQ[(*rear)]);
+	        (*rear)--;
+    }
+}
+void display(int * DQ,int front,int rear)
+{
+    if(front>rear)
+    {
+        printf("\n QUEUE IS EMPTY \n\n");
+    }
+    else//display elements of queue
+    {
+    printf("%d \t %d",front,rear);
+        printf("elements of queue are\n");
+        for(int i=front;i<=rear;i++)	     
+        {  
+              printf(" %d \n",DQ[i]);  
+        }
+    }
+}
+int main()
+{
+    int DQ[MAX_SIZE],rear=-1,front=0,elem,ch;
+    while(1)
+    {
+        printf("choices are \n1.insert_front\n2.insert_rear\n3.delete_front\n4.delete_rear\n5.display\n6.exit\n ");
+        printf("enter the choice\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:printf("enter the element\n");
+                    scanf("%d",&elem);
+                    insert_front(DQ,&front,&rear,elem);
+                    break;
+            case 2:printf("enter the element\n");
+                    scanf("%d",&elem);
+                    insert_rear(DQ,&rear,elem);
+                    break;
+            case 3:delete_front(DQ,&front,rear);
+                    break;
+            case 4:delete_rear(DQ,&front,&rear);
+                    break;
+            case 5:display(DQ,front,rear);
+                    break;
+            case 6:exit(0);
+	    default:printf("invalid choice\n");
+            
+        }
+    } 
+
+    return 0;
+}

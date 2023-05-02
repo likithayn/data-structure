@@ -1,0 +1,85 @@
+// IMPLEMENTATION OF MULTIPLE STACKS //
+#include <stdio.h>
+#include<stdlib.h>
+#define MAX_SIZE 12
+#define no_of_stack 3
+void push(int * S,int * top,int * boun,int i, int elem)
+{		
+    if(top[i]==boun[i+1])//stack full
+    { 	
+        printf("\n STACK %d OVERFLOW CONDITION \n\n",i);
+    }
+    else//insertion possible
+    {
+        top[i]++;
+        S[top[i]]=elem;
+    }
+}
+void pop(int * S,int * top,int *boun,int i)
+{
+    if(top[i]==boun[i])//stack empty
+    {
+        printf("\n STACK %d UNDERFLOW CONDITION \n\n",i);
+    }
+    else//deletion possible
+    {
+        printf("the element to be poped is %d\n",S[top[i]]);
+	    top[i]--;
+    }
+}
+void display(int * S,int * top,int * boun,int i)
+{
+    
+    for(i=0;i<no_of_stack;i++)
+    {
+        if(top[i]==boun[i])//stack empty
+        {
+            printf("\n STACK %d  IS EMPTY \n\n",i);
+            return ;
+        }
+        printf("elements of stack %d are\n",i);
+        //displaying elements of stack 
+        for(int j=boun[i]+1;j<=top[i];j++)
+        {
+            printf(" %d \n",S[j]);
+        }
+        
+    }
+    
+}
+int main()
+{
+    int S[MAX_SIZE],top[no_of_stack+1],boun[no_of_stack+1],i,ch,elem;
+    
+    for(i=0;i<=no_of_stack;i++)
+    {
+        top[i]=(MAX_SIZE/no_of_stack*i)-1;
+        boun[i]=top[i];
+    }
+    while(1)
+    {
+        printf("enter the stack number\n");
+        scanf("%d",&i);
+        printf("choices are \n1.push\n2.pop\n3.display\n4.exit\n ");
+        printf("enter the choice\n");
+        scanf("%d",&ch);
+        
+        switch(ch)
+        {
+            case 1:printf("enter the element to be pushed \n");
+                    scanf("%d",&elem);
+                    push(S,top,boun,i,elem);
+                    break;
+            case 2:pop(S,top,boun,i);
+                    break;
+            case 3:display(S,top,boun,i);
+                    break;
+            case 4:exit(0);
+	    default:printf("invalid choice\n");
+            
+        }
+    }
+
+    return 0;
+
+}

@@ -1,0 +1,75 @@
+//  IMPLEMENTATION OF QUEUES USING DYNAMIC MEMORY ALLOCATION //
+#include <stdio.h>
+#include<stdlib.h>
+int * insert(int * Q,int * MAX_SIZE,int * rear, int elem)
+{		
+    if((*rear)<((*MAX_SIZE))-1)//insertion possible
+    { 		
+        (*rear)++;
+        Q[*rear]=elem;
+    }
+    else
+    {
+        (*MAX_SIZE)=(*MAX_SIZE)*2;//reallocating queue size
+        Q=(int*)realloc(Q,sizeof(int)*(*MAX_SIZE));
+        (*rear)++;
+        Q[(*rear)]=elem;
+    }
+    return Q;
+}
+void delete(int * Q,int * front,int rear,int MAX_SIZE)
+{
+        if(*(front)<=rear)//deletion possible
+        {
+            printf("the element to be poped is %d\n",Q[*(front)]);
+	        (*front)++;
+        }
+        else//deletion not possible
+        {
+            printf("\n DELETION NOT POSSIBLE \n \n");
+        }
+  
+}
+void display(int * Q,int front,int rear)
+{
+    if(front>rear)
+    {
+        printf("\n QUEUE IS EMPTY \n\n");
+    }
+    else
+    {
+        printf("elements of queue are\n");
+        for(int i=front;i<=rear;i++)	     
+        {  
+              printf(" %d \n",Q[i]);  
+        }
+    }
+}
+int main()
+{
+    int * Q,MAX_SIZE,rear=-1,front=0,elem,ch;
+   printf("enter the size of queue\n");
+    scanf("%d",&MAX_SIZE);
+    Q=(int*)malloc(sizeof(int)*MAX_SIZE);
+    while(1)
+    {
+        printf("enter the choices \n1.insert\n2.delete\n3.display\n4.exit\n ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:printf("enter the element\n");
+                    scanf("%d",&elem);
+                    Q=insert(Q,&MAX_SIZE,&rear,elem);
+                    break;
+            case 2:delete(Q,&front,rear,MAX_SIZE);
+                    break;
+            case 3:display(Q,front,rear);
+                    break;
+            case 4:exit(0);
+            default:printf("invalid choice\n");
+            
+        }
+    } 
+
+    return 0;
+}

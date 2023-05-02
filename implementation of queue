@@ -1,0 +1,71 @@
+//  IMPLEMENTATION OF QUEUES USING STATIC MEMORY ALLOCATION //
+#include <stdio.h>
+#include<stdlib.h>
+#define MAX_SIZE 4
+void insert(int * Q,int * rear, int elem)
+{		
+    if((*rear)<(MAX_SIZE)-1)//insertion possible
+    { 		
+        (*rear)++;
+        Q[*rear]=elem;
+    }
+    else//rear end full
+    {
+        printf("\n INSERTION NOT POSSIBLE \n\n");
+    }
+    
+}
+void delete(int * Q,int * front,int rear)
+{
+        if((*front)<=rear)//deletion possible
+        {
+            printf("the element to be poped is %d\n",Q[(*front)]);
+	        (*front)++;
+        }
+        else//queue empty
+        {
+            printf("\n DELETION NOT POSSIBLE \n\n");
+        }
+  
+}
+void display(int * Q,int front,int rear)
+{
+    if(front>rear)
+    {
+        printf("\n QUEUE IS EMPTY \n\n");
+    }
+    else//display elements of queue
+    {
+    
+        printf("elements of queue are\n");
+        for(int i=front;i<=rear;i++)	     
+        {  
+              printf(" %d \n",Q[i]);  
+        }
+    }
+}
+int main()
+{
+    int Q[MAX_SIZE],rear=-1,front=0,elem,ch;
+    while(1)
+    {
+        printf("enter the choices \n1.insert\n2.delete\n3.display\n4.exit\n ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:printf("enter the element\n");
+                    scanf("%d",&elem);
+                    insert(Q,&rear,elem);
+                    break;
+            case 2:delete(Q,&front,rear);
+                    break;
+            case 3:display(Q,front,rear);
+                    break;
+            case 4:exit(0);
+	    default:printf("invalid choice\n");
+            
+        }
+    } 
+
+    return 0;
+}

@@ -1,0 +1,78 @@
+//STACK IMPLEMENTATION USING DYNAMIC MEMORY ALLOCATION//
+#include <stdio.h>
+#include<stdlib.h>
+int * push(int* S,int * MAX_SIZE,int * top, int elem)
+{		
+    if((*top)<((*MAX_SIZE)-1))//insertion possible
+    { 	
+        (*top)++;
+        S[(*top)]=elem;
+        return S;
+    }
+    //stack full over flow condition
+    (*MAX_SIZE)=(*MAX_SIZE)*2;//stack size doubled 
+    S=(int*)realloc(S,sizeof(int)*(*MAX_SIZE));
+    (*top)++;
+    S[*top]=elem;
+
+    return S;
+}
+void pop(int * S,int * top)
+{
+    if((*top)!=-1)//deletion possible
+    {
+        printf("the element to be poped is %d\n",S[*top]);
+	    (*top)--;
+    }
+    else
+    {
+        //stack empty
+        printf("\n STACK UNDERFLOW CONDITION \n\n");
+    }
+}
+void display(int *S,int  top)
+{
+    int i;
+    if(top==-1)
+    {
+        printf("stack is empty\n");
+    }
+   else
+    {
+   	    printf("elements of stack are\n");
+   	    for(i=0;i<=top;i++)	     
+  	     {  
+   	    	printf(" %d \n",S[i]);  
+  	     }
+    }
+}
+int main()
+{
+    int *S,MAX_SIZE,top=-1,elem,ch;
+    printf("enter the size of stack\n");
+    scanf("%d",&MAX_SIZE);
+    S=(int*)malloc(sizeof(int)*MAX_SIZE);
+    while(1)
+    {
+        printf("choices are \n1.push\n2.pop\n3.display\n4.exit\n ");
+        printf("enter the choice\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:printf("enter the element to be pushed \n");
+                    scanf("%d",&elem);
+                    S=push(S,&MAX_SIZE,&top,elem);
+                    break;
+            case 2:pop(S,&top);
+                    break;
+            case 3:display(S,top);
+                    break;
+            case 4:exit(0);
+            default:printf("invalid choice\n");
+            
+        }
+    } 
+
+    return 0;
+
+}

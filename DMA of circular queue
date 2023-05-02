@@ -1,0 +1,72 @@
+//IMPLEMENTATION OF CIRCULAR QUEUES USING DYNAMIC MEMORY ALLOCATION // 
+#include <stdio.h>
+#include<stdlib.h>
+int * insert(int * CQ,int * MAX_SIZE,int * rear,int * count, int elem)
+{	
+    if((*count)==(*MAX_SIZE))
+    { 	
+        (*MAX_SIZE)=(*MAX_SIZE)*2;
+        CQ=(int*)realloc(CQ,sizeof(int)*(*MAX_SIZE));
+        (*count)++;
+        (*rear)=((*rear)+1)%((*MAX_SIZE));
+        CQ[(*rear)]=elem;
+    }
+    else//insertion posible
+    { 
+        (*count)++;
+        (*rear)=((*rear)+1)%((*MAX_SIZE));
+        CQ[(*rear)]=elem;
+    }
+
+    return CQ;
+}
+void delete(int * CQ ,int  MAX_SIZE,int * front,int * count)
+{
+        if((*count)!=0)//deletion posible
+        {
+            printf("the element to be deleted is %d\n",CQ[(*front)]);
+            (*front)=((*front)+1)%(MAX_SIZE);
+	        (*count)--;
+        }
+        else
+        {
+            printf("\n CIRCULAR QUEUE IS EMPTY \n\n");
+        }
+  
+}
+void display(int * CQ,int MAX_SIZE,int front,int count)
+{       //displaying elemts of CQ
+        printf("elements of queue are\n");
+        for(int i=0;i<count;i++)	     
+        {  
+              printf(" %d \n",CQ[front]);
+              front=(front+1)%(MAX_SIZE);
+        }
+}
+int main()
+{
+    int * CQ,MAX_SIZE,rear=-1,front=0,count=0,elem,ch;
+   printf("enter the size of queue\n");
+    scanf("%d",&MAX_SIZE);
+    CQ=(int*)malloc(sizeof(int)*MAX_SIZE);
+    while(1)
+    {
+        printf("enter the choices \n1.insert\n2.delete\n3.display\n4.exit\n ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:printf("enter the element\n");
+                    scanf("%d",&elem);
+                    CQ=insert(CQ,&MAX_SIZE,&rear,&count,elem);
+                    break;
+            case 2:delete(CQ,MAX_SIZE,&front,&count);
+                    break;
+            case 3:display(CQ,MAX_SIZE,front,count);
+                    break;
+            case 4:exit(0);
+            default:printf("invalid choice\n");
+        }
+    } 
+
+    return 0;
+}

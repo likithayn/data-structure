@@ -1,0 +1,82 @@
+// IMPLEMENTATION OF STRUCTURES IN STACKS  //
+#include <stdio.h>
+#include<stdlib.h>
+struct emp
+{
+    int eid;
+    char ename[20];
+};
+typedef struct emp E;
+E * push(E * S,int * MAX_SIZE,int * top)
+{		
+    if((*top)<((*MAX_SIZE))-1)//insertion possible
+    { 	
+        (*top)++;
+        printf("enter the employe id and name\n");
+        scanf("%d%s",&(S[(*top)].eid),S[(*top)].ename);
+        return S;
+    }
+    //stack overflow condition 
+        (*MAX_SIZE)=(*MAX_SIZE)*2;//increasing stack size
+        S=(E*)realloc(S,sizeof(E)*(*MAX_SIZE));
+        (*top)++;
+        printf("enter the employe id and name\n");
+        scanf("%d%s",&(S[(*top)].eid),S[(*top)].ename);
+    return S;
+}
+void pop(E * S,int * top)
+{
+    if((*top)>-1)//deletion possible
+    {
+        printf("the element to be poped is %d %s\n",(S[(*top)].eid),S[(*top)].ename);
+	    (*top)--;
+    }
+    else
+    {
+        //stack of structure empty
+        printf("\n UNDERFLOW CONDITION \n\n");
+    }
+}
+void display( E * S,int  top)
+{
+    int i;
+    if(top==-1)
+    {
+        printf("stack  is empty\n");
+    }
+    else
+    {
+    	printf("elements of stack are\n");
+  	    for(i=0;i<=top;i++)	     
+   	    {  
+      	    printf(" %d \t %s \n",(S[i].eid),S[i].ename);  
+    	  }
+    }
+}
+int main()
+{
+    E*S;
+    int MAX_SIZE,top=-1,ch;
+    printf("enter the size of stack\n");
+    scanf("%d",&MAX_SIZE);
+    S=(E*)malloc(sizeof(E)*MAX_SIZE);
+    while(1)
+    {
+        printf("enter the choices \n1.push\n2.pop\n3.display\n4.exit\n ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:S=push(S,&MAX_SIZE,&top);
+                    break;
+            case 2:pop(S,&top);
+                    break;
+            case 3:display(S,top);
+                    break;
+            case 4:exit(0);
+            default:printf("invalid choice\n");
+            
+        }
+    } 
+
+    return 0;
+}

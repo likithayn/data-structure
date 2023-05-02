@@ -1,0 +1,86 @@
+// IMPLEMENTATION OF STRUCTURE USING QUEUES //
+#include <stdio.h>
+#include<stdlib.h>
+struct emp
+{
+    int eid;
+    char ename[20];
+};
+typedef struct emp E;
+
+E * insert(E * Q,int * MAX_SIZE,int * rear)
+{		
+    if((*rear)<((*MAX_SIZE))-1)//insertion possible
+    { 		
+        (*rear)++;
+       printf("enter the employe id and name\n");
+        scanf("%d %s",&(Q[*rear].eid),Q[*rear].ename);
+
+    }
+    else
+    {
+        (*MAX_SIZE)=(*MAX_SIZE)*2;//reallocating queue size
+        Q=(E*)realloc(Q,sizeof(E)*(*MAX_SIZE));
+        printf("%d\n",(*MAX_SIZE));
+        (*rear)++;
+        printf("enter the employe id and name\n");
+        scanf("%d%s",&(Q[(*rear)].eid),Q[(*rear)].ename);
+
+    }
+    return Q;
+}
+void delete(E * Q,int * front,int rear,int MAX_SIZE)
+{
+        if(*(front)<=rear)//deletion possible
+        {
+            printf("the element to be poped is %d %s\n",(Q[*front].eid),Q[*front].ename);
+	        (*front)++;
+        }
+        else//deletion not possible
+        {
+            printf("deletion not possible\n");
+        }
+  
+}
+void display(E * Q,int front,int rear)
+{
+    if(front>rear)
+    {
+        printf("queue is empty\n");
+    }
+    else//display elemnts of queue
+    {
+        printf("elements of queue are\n");
+        for(int i=front;i<=rear;i++)	     
+        {  
+              printf(" %d \t %s \n",(Q[i].eid),Q[i].ename);  
+        }
+    }
+}
+int main()
+{
+    int MAX_SIZE,rear=-1,front=0,ch;
+    E*Q;
+    printf("enter the size of queue\n");
+    scanf("%d",&MAX_SIZE);
+    Q=(E*)malloc(sizeof(E)*MAX_SIZE);
+    while(1)
+    {
+        printf("enter the choices \n1.insert\n2.delete\n3.display\n4.exit\n ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1: Q=insert(Q,&MAX_SIZE,&rear);
+                    break;
+            case 2:delete(Q,&front,rear,MAX_SIZE);
+                    break;
+            case 3:display(Q,front,rear);
+                    break;
+            case 4:exit(0);
+            default:printf("invalid choice \n");
+            
+        }
+    } 
+
+    return 0;
+}
